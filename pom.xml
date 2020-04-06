@@ -39,6 +39,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+            <version>5.1.47</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -51,13 +52,6 @@
             <scope>provided</scope>
         </dependency>
 
-
-        <!--Swagger-->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.2</version>
-        </dependency>
 
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -86,6 +80,11 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>2.0.2</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

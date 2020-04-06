@@ -1,12 +1,10 @@
-server:
-  port: 8080
-  servlet:
-    context-path: /donate
-
 spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bcu_donate?useSSL=false
-    username: root
-    password: root
+  profiles:
+    active: dev
+
+wechat:
+  appId: 888888
+  secret: 888888
+
+
 

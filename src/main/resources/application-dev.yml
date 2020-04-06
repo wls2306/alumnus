@@ -1,1 +1,12 @@
-datas
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://cdb-1hfsdow8.bj.tencentcdb.com:10032/bcu_alumnus?useSSL=false
+    username: root
+    password: wangleishu99
+  jpa:
+    show-sql: true
+
+server:
+  servlet:
+    context-path: /alumnus
