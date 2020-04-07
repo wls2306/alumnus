@@ -67,8 +67,7 @@ public class UserService {
     */
     public Message insertManageUser(String userId,String userName,String password,String partId,String type)
     {
-        User u;
-        u = new User();
+        User u = new User();
         u.setUserId(userId);
         u.setUserName(userName);
         u.setUserPassword(password);

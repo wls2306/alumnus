@@ -3,14 +3,11 @@ package com.bcu.alumnus.controller;
 import com.bcu.alumnus.UseToken;
 import com.bcu.alumnus.entity.Message;
 import com.bcu.alumnus.service.UserService;
-import com.bcu.alumnus.utils.JwtUtil;
-import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @Api(tags = "用户模块")
