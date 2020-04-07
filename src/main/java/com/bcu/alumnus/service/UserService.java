@@ -67,7 +67,8 @@ public class UserService {
     */
     public Message insertManageUser(String userId,String userName,String password,String partId,String type)
     {
-        User u=new User();
+        User u;
+        u = new User();
         u.setUserId(userId);
         u.setUserName(userName);
         u.setUserPassword(password);
@@ -99,8 +100,6 @@ public class UserService {
         List<User> rs=userRepository.getUserByUserPartId(partId);
         return Message.success(null).add(rs);
     }
-
-
 
 //    /**
 //    * @Author: Wls
