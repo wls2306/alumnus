@@ -7,6 +7,15 @@ spring:
   jpa:
     show-sql: true
 
+#  #外部文件配置
+#  mvc:
+#    static-path-pattern: /resource/**
+#  resources:
+#    static-locations: file:C:/community-res/
+
+gen:
+  file-path: C:/alumnus-res/
+
 server:
   servlet:
     context-path: /alumnus

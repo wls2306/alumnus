@@ -2,6 +2,7 @@ spring:
   profiles:
     active: dev
 
+
 wechat:
   appId: 888888
   secret: 888888

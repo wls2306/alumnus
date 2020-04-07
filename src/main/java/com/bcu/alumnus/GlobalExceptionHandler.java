@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -46,6 +47,13 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Message PermissionDeniedExceptionHandler(TokenNotExistsExpectation ex){
         return Message.fail(ex.getMessage());
+    }
+
+    @ExceptionHandler(IOException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public Message IOExceptionHandler(){
+        return Message.fail("服务器异常，请稍后再试");
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

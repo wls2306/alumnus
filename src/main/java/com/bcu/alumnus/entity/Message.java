@@ -44,7 +44,7 @@ public class Message
     //添加包含的数据
     public Message add(Object obj)
     {
-        this.setExtend(obj);
+        this.setObj(obj);
         return this;
     }
 
@@ -68,12 +68,12 @@ public class Message
         this.msg = msg;
     }
 
-    public Object getExtend()
+    public Object getObj()
     {
         return obj;
     }
 
-    public void setExtend(Object obj)
+    public void setObj(Object obj)
     {
         this.obj= obj;
     }
