@@ -14,7 +14,7 @@ public interface StarRepository extends JpaRepository<Star,String> , JpaSpecific
      * 1. 校园明星发布，初始发布状态后台设置为0，待审核。 @UseToken(level=2)
      * 2. 通过编号进行校园明星审核（将状态改为1）@UseToken(level=4)
      * 3. 删除校园明星 @UseToken(level=4)
-     * 4. 通过学部编号查找学部内状态为可见的校园明星，以及全校可见的状态为可见的校园明星，时间倒序排列
+     * 4. 通过学部编号查找状态为可见的校园明星，时间倒序排列
      * 5. 查找所有状态为可见的校园明星，时间倒序排列
      * 6. 通过校园明星编号查询校园明星
      * 7. 通过用户编号查询校园明星
@@ -29,8 +29,8 @@ public interface StarRepository extends JpaRepository<Star,String> , JpaSpecific
 
     int deleteByStarId(String starId);
 
-    @Query(value = "select * from star where star_part_id=?1 and star_status=1 or star_status=1 order by star_create_date desc ",nativeQuery = true)
-    List<Star> getStarForAlumnus(String partId);
+    @Query(value = "select * from star where star_part_id=?1 and star_status=1 order by star_create_date desc ",nativeQuery = true)
+    List<Star> getStarByStarPartIdAndAndStarStatus(String partId);
 
     @Query(value = "select * from star where star_status=?1 order by star_create_date desc ",nativeQuery = true)
     List<Star> getAllStar(String starStatus);

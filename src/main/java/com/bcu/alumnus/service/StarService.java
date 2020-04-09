@@ -29,7 +29,7 @@ public class StarService {
      * 1. 校园明星发布，初始发布状态后台设置为0，待审核。 @UseToken(level=2)
      * 2. 通过编号进行校园明星审核（将状态改为1）@UseToken(level=4)
      * 3. 删除校园明星 @UseToken(level=4)
-     * 4. 通过学部编号查找学部内状态为可见的校园明星，以及全校可见的状态为可见的校园明星，时间倒序排列
+     * 4. 通过学部编号查找状态为可见的校园明星，时间倒序排列
      * 5. 查找所有状态为可见的校园明星，时间倒序排列
      * 6. 通过校园明星编号查询校园明星
      * 7. 通过用户编号查询校园明星
@@ -74,16 +74,6 @@ public class StarService {
 
     /**
     * @Author: Shj
-    * @Date: 22:12 2020/4/7
-    * @Description: 小程序获取混合明星列表
-    */
-    public Message getStarForAlumnus(String partId){
-        logger.info("小程序端获取校园明星列表，学部：{}",partId);
-        return Message.success(null).add(starRepository.getStarForAlumnus(partId));
-    }
-
-    /**
-    * @Author: Shj
     * @Date: 22:19 2020/4/7
     * @Description: 发布明星根据编号(审核)
     */
@@ -107,6 +97,16 @@ public class StarService {
             return Message.success(null);
         }
         return Message.fail(null);
+    }
+
+    /**
+     * @Author: Shj
+     * @Date: 22:12 2020/4/7
+     * @Description: 通过学部编号查找状态为可见的校园明星
+     */
+    public Message getStarByStarPartIdAndAndStarStatus(String partId){
+        logger.info("通过学部编号查找状态为可见的校园明星，学部：{}",partId);
+        return Message.success(null).add(starRepository.getStarByStarPartIdAndAndStarStatus(partId));
     }
 
     /**
