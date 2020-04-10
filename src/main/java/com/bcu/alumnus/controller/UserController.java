@@ -2,6 +2,7 @@ package com.bcu.alumnus.controller;
 
 import com.bcu.alumnus.UseToken;
 import com.bcu.alumnus.entity.Message;
+import com.bcu.alumnus.entity.User;
 import com.bcu.alumnus.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +21,7 @@ public class UserController {
     @PostMapping("/token")
     @ApiOperation(value = "使用用户名和密码获取用户token")
     public Message userLogin(String userId, String password){
+
         return userService.userLoginByUserIdAndPassword(userId, password);
     }
 

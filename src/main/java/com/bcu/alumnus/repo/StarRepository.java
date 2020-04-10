@@ -24,7 +24,7 @@ public interface StarRepository extends JpaRepository<Star,String> , JpaSpecific
      * 11. 通过主人公编号查询校园明星
      * 12. ...
      */
-    @Query(value = "update Star set starStatus=?1 where starId=?2")
+    @Query(value = "update Star set starStatus=?1 where starId=?2")     
     int updateStarStatusByStarId(String starStatus, String starId);
 
     int deleteByStarId(String starId);
