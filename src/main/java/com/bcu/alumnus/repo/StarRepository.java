@@ -37,7 +37,7 @@ public interface StarRepository extends JpaRepository<Star,String> , JpaSpecific
 
     Star getStarByStarId(String starId);
 
-    List<Star> getStarByUserId(String userId);
+    //List<Star> getStarByUserId(String userId);
 
     List<Star> getStarByStarPartId(String starPartId);
 

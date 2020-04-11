@@ -139,10 +139,10 @@ public class StarService {
     * @Date: 22:48 2020/4/7
     * @Description: 根据用户编号获取校园明星
     */
-    public Message getStarByUserId(String userId){
+    /*public Message getStarByUserId(String userId){
         logger.info("根据用户编号获取校园明星，用户编号：{}",userId);
         return Message.success(null).add(starRepository.getStarByUserId(userId));
-    }
+    }*/
 
     /**
     * @Author: Shj

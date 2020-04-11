@@ -59,11 +59,11 @@ public class StarController {
         return starService.getStarByStarId(starId);
     }
 
-    @GetMapping("/userId/{userId}")
+   /* @GetMapping("/userId/{userId}")
     @ApiOperation(value = "根据用户编号获取校园明星")
     public Message getStarByUserId(@PathVariable("userId") String userId) {
         return starService.getStarByUserId(userId);
-    }
+    }*/
 
     @GetMapping("/part/{starPartId}")
     @ApiOperation(value = "根据学部编号获取校园明星")
