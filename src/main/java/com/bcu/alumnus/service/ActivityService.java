@@ -35,6 +35,11 @@ public class ActivityService {
      *4. 查找校级活动
      *5. 通过创建人编号和活动状态查找活动
      *6. 通过学部编号查找所有活动
+     *7. 查找所有活动那个
+     *8. 通过活动状态查找所有的活动
+     *9. 通过活动类型查找所有的活动
+     *10. 通过活动编号查找活动
+     *11. 修改活动状态
      */
 
 
@@ -75,9 +80,9 @@ public class ActivityService {
      * @Date: 16:18 2020/4/8
      * @Description: 通过学部编号查找已审核的校园活动
      */
-    public Message getActivitybyActPartId(String actPartId){
-        logger.info("查找已审核校园活动，通过学部编号{}",actPartId);
-        return Message.success(null).add(activityRepository.getActivityByActPartIdAndActStatusNot(actPartId,"0"));
+    public Message getActivityByActPartId(String ActPartId){
+        logger.info("通过学部编号查找已审核的校园活动，学部编号{}",ActPartId);
+        return Message.success(null).add(activityRepository.getActivityByActPartIdAndActStatusNot(ActPartId,"0"));
     }
 
     /**
@@ -85,29 +90,29 @@ public class ActivityService {
      * @Date: 16:52 2020/4/8
      * @Description: 通过创建人编号查找已审核的校园活动
      */
-    public Message getActivitybyActUserId(String actUserId){
-        logger.info("查找已审核校园活动，通过用户编号{}",actUserId);
-        return Message.success(null).add(activityRepository.getActivityByActUserIdAndActStatusNot(actUserId,"0"));
+    public Message getActivityByActUserId(String ActUserId){
+        logger.info("通过创建人编号查找已审核的校园活动，创建人编号{}",ActUserId);
+        return Message.success(null).add(activityRepository.getActivityByActUserIdAndActStatusNot(ActUserId,"0"));
     }
 
     /**
      * @Author: GuoZiZhou
      * @Date: 18:11 2020/4/8
-     * @Description: 活动类型为校级的已审核校园活动
+     * @Description: .通过学部编号查找已审核的校园活动 以及 活动类型为校级的已审核校园活动
      */
-    public Message getActivitybyActType(){
-        logger.info("查找已审核校园活动，并且活动类型为校级");
-        return Message.success(null).add(activityRepository.getActivityByActTypeEquals("0"));
+    public Message getActivityByActPartIdAndActType(String ActPartId){
+        logger.info("活动类型为校级的已审核校园活动");
+        return Message.success(null).add(activityRepository.getActivityByActPartIdAndActTypeAndActStatusNot(ActPartId,"2","0"));
     }
 
     /**
      * @Author: GuoZiZhou
      * @Date: 21:17 2020/4/8
-     * @Description: 活动类型为校级的已审核校园活动
+     * @Description: 通过创建人编号和活动状态查找活动
      */
-    public Message getActivitybyActUserIdAndActStatus(String actUserId,String actStatus){
-        logger.info("查找校园活动，通过创建用户编号{}，和活动状态{}",actUserId,actStatus);
-        return Message.success(null).add(activityRepository.getActivityByActUserIdaAndActStatusEquals(actUserId,actStatus));
+    public Message getActivityByActUserIdAndActStatus(String ActUserId,String ActStatus){
+        logger.info("查找校园活动，通过创建用户编号{}，和活动状态{}",ActUserId,ActStatus);
+        return Message.success(null).add(activityRepository.getActivityByActUserIdaAndActStatus(ActUserId,ActStatus));
     }
 
     /**
@@ -115,9 +120,59 @@ public class ActivityService {
      * @Date: 21:36 2020/4/8
      * @Description: 通过学部编号查找所有活动
      */
-    public Message getAllActivitybyActPartId(String actPartId){
-        logger.info("查找所有校园活动，通过学部编号",actPartId);
-        return Message.success(null).add(activityRepository.getActivityByActPartId(actPartId));
+    public Message getAllActivityByActPartId(String ActPartId){
+        logger.info("查找所有校园活动，通过学部编号",ActPartId);
+        return Message.success(null).add(activityRepository.getActivityByActPartId(ActPartId));
+    }
+
+    /**
+     * @Author: GuoZiZhou
+     * @Date: 13:40 2020/4/9
+     * @Description: 查找所有活动
+     */
+    public Message getAllActivity(){
+        logger.info("查找所有校园活动");
+        return Message.success(null).add(activityRepository.getActivity());
+    }
+
+    /**
+     * @Author: GuoZiZhou
+     * @Date: 13:44 2020/4/9
+     * @Description: 通过活动状态查找所有活动
+     */
+    public Message getActivityByActStatus(String ActStatus){
+        logger.info("查找所有校园活动，活动状态{}",ActStatus);
+        return Message.success(null).add(activityRepository.getActivityByActStatus(ActStatus));
+    }
+
+    /**
+     * @Author: GuoZiZhou
+     * @Date: 13:59 2020/4/9
+     * @Description: 通过活动状态查找所有活动
+     */
+    public Message getActivityByActType(String ActType){
+        logger.info("通过活动状态查找所有活动,活动类型{}",ActType);
+        return Message.success(null).add(activityRepository.getActivityByActType(ActType));
+    }
+
+    /**
+     * @Author: GuoZiZhou
+     * @Date: 21:51 2020/4/12
+     * @Description: 通过活动编号查找活动
+     */
+    public Message getActivityByActId(String ActId){
+        logger.info("通过活动编号查找活动,活动id{}",ActId);
+        return Message.success(null).add(activityRepository.getActivityByActId(ActId));
+    }
+
+    /**
+     * @Author: GuoZiZhou
+     * @Date: 22:07 2020/4/12
+     * @Description: 修改活动状态
+     */
+    public Message updataActivityByActId(String ActStatus,String ActId){
+        logger.info("审核活动,活动id{}",ActId);
+        return Message.success(null).add(activityRepository.updataActStatusByActId(ActStatus,ActId));
     }
 
 }
