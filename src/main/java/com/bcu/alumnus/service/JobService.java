@@ -130,7 +130,7 @@ public class JobService {
 
     /**
      * @Author: WHW
-     * @Date: 13:34 2020/4/10
+     * @Date: 13:35 2020/4/10
      * @Description: 通过内推编号删除岗位内推信息 @UseToken(level=1)
      */
     public Message deleteJobByjobId(Integer jobId){
