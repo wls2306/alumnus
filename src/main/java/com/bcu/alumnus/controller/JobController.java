@@ -40,26 +40,26 @@ public class JobController {
 
     @GetMapping("/jobPartIdandjobtype2/{jobPartId}")
     @ApiOperation(value = "查询学部编号、以及岗位类型为校级的岗位内推信息")
-    public Message getJobInfoByjobPartIdandjobtype2(String jobPartId){
+    public Message getJobInfoByjobPartIdandjobtype2(@PathVariable("jobPartId") String jobPartId){
         return jobService.getJobInfoByjobPartIdandjobtype2(jobPartId);
     }
 
     @GetMapping("/VISjobPartId/{jobPartId}")
     @ApiOperation(value = "通过学部编号查询可见的岗位内推信息")
-    public Message getJobInfoByjobPartId(String jobPartId){
+    public Message getJobInfoByjobPartId(@PathVariable("jobPartId")String jobPartId){
         return jobService.getJobInfoByjobPartId(jobPartId);
     }
 
     @GetMapping("/ALLjobPartId/{jobPartId}")
     @ApiOperation(value = "通过学部编号查询学部内的内推信息")
     @UseToken(level = 3)
-    public Message getJobInfoInPartByByjobPartId(String jobPartId){
+    public Message getJobInfoInPartByByjobPartId(@PathVariable("jobPartId")String jobPartId){
         return jobService.getJobInfoInPartByByjobPartId(jobPartId);
     }
 
     @GetMapping("/jobstatus/{jobstatus}")
     @ApiOperation(value = "根据状态查询内推信息")
-    public Message getJobInfoByjobstatus(String jobstatus){
+    public Message getJobInfoByjobstatus(@PathVariable("jobstatus")String jobstatus){
         return jobService.getJobInfoByjobstatus(jobstatus);
     }
 
@@ -73,32 +73,32 @@ public class JobController {
     @PutMapping("/updateJobstatus/{jobid}")
     @ApiOperation(value = "通过内推编号变更内推状态")
     @UseToken(level = 3)
-    public Message updateJobstatusByjobid(Integer jobid,String jobstatus){
+    public Message updateJobstatusByjobid(@PathVariable("jobid")Integer jobid,String jobstatus){
         return jobService.updateJobstatusByjobid(jobid,jobstatus);
     }
 
     @DeleteMapping("/jobId/{jobId}")
     @ApiOperation(value = "通过内推编号删除岗位内推信息")
     @UseToken(level = 1)
-    public Message deleteJobByjobId(Integer jobId){
+    public Message deleteJobByjobId(@PathVariable("jobId")Integer jobId){
         return jobService.deleteJobByjobId(jobId);
     }
 
     @GetMapping("/jobId/{jobId}")
     @ApiOperation(value = "通过内推编号查询内推信息")
-    public Message getJobByjobId(Integer jobId){
+    public Message getJobByjobId(@PathVariable("jobId")Integer jobId){
         return  jobService.getJobByjobId(jobId);
     }
 
     @PutMapping("/updateALL/{jobid}")
     @ApiOperation(value = "通过内推编号修改内推信息")
-    public Message updateJobByjobId(Job job){
+    public Message updateJobByjobId(@PathVariable("jobid")Job job){
         return jobService.updateJobByjobId(job);
     }
 
     @GetMapping("/jobUserId/{jobUserId}")
     @ApiOperation(value = "通过推荐人编号获取所有内推信息")
-    public Message getJobByjobUserId(String jobUserId){
+    public Message getJobByjobUserId(@PathVariable("jobUserId")String jobUserId){
         return jobService.getJobByjobUserId(jobUserId);
     }
 }
