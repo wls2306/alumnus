@@ -27,33 +27,35 @@ public class StarController {
         return starService.insertStar(star);
     }
 
-    @GetMapping("/visiblePart")
+    @GetMapping("/pass/part/{partId}")
     @ApiOperation(value = "通过学部编号查找状态为可见的校园明星")
-    public Message getStarForAlumnus(String partId) {
+    @JsonView(Star.StarSimpleView.class)
+    public Message getStarForAlumnus(@PathVariable("partId")String partId) {
         return starService.getStarByStarPartIdAndAndStarStatus(partId);
     }
 
-    @GetMapping("/pub")
+    @PutMapping("/verify")
     @ApiOperation(value = "发布明星根据编号(审核)")
     @UseToken(level = 4)
     public Message publishStarByStarId(String starId) {
         return starService.publishStarByStarId(starId);
     }
 
-    @PostMapping("/delete/{starId}")
+    @DeleteMapping("/{starId}")
     @ApiOperation(value = "根据编号删除校园明星")
     @UseToken(level = 4)
     public Message deleteStarByStarId(@PathVariable("starId")String starId) {
         return starService.deleteStarByStarId(starId);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/pass/all")
     @ApiOperation(value = "查找所有状态为可见的校园明星")
+    @JsonView(Star.StarSimpleView.class)
     public Message getAllStar(String starStatus) {
         return starService.getAllStar(starStatus);
     }
 
-    @GetMapping("/starId/{starId}")
+    @GetMapping("/id/{starId}")
     @ApiOperation(value = "根据明星编号获取校园明星")
     public Message getStarByStarId(@PathVariable("starId")String starId) {
         return starService.getStarByStarId(starId);
@@ -67,24 +69,31 @@ public class StarController {
 
     @GetMapping("/part/{starPartId}")
     @ApiOperation(value = "根据学部编号获取校园明星")
+    @JsonView(Star.StarSimpleView.class)
+    @UseToken(level = 3)
     public Message getStarByStarPartId(@PathVariable("starPartId") String starPartId) {
         return starService.getStarByStarPartId(starPartId);
     }
 
     @GetMapping("/status/{starStatus}")
     @ApiOperation(value = "根据可见状态获取校园明星")
+    @JsonView(Star.StarSimpleView.class)
+    @UseToken(level = 2)
     public Message getStarByStarStatus(@PathVariable("starStatus")String starStatus) {
         return starService.getStarByStarStatus(starStatus);
     }
 
-    @PostMapping("/likeCount/{starLikeCount}/{starId}")
+    @PutMapping("/like/{starLikeCount}/{starId}")
     @ApiOperation(value = "根据校园明星编号更新点赞数量")
+    @UseToken(level = 1)
     public Message updateStarLikeCountByStarId(@PathVariable("starLikeCount")String starLikeCount, @PathVariable("starId")String starId) {
         return starService.updateStarLikeCountByStarId(starLikeCount, starId);
     }
 
-    @GetMapping("/starUserId/{starUserId}")
+    @GetMapping("/user/{starUserId}")
     @ApiOperation(value = "根据主人公编号获取校园明星")
+    @JsonView(Star.StarSimpleView.class)
+    @UseToken(level = 1)
     public Message getStarByStarUserId(@PathVariable("starUserId") String starUserId) {
         return starService.getStarByStarUserId(starUserId);
     }

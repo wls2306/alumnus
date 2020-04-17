@@ -53,16 +53,16 @@ public class StarService {
         /*
          * 将处于临时文件夹的文件转移到业务文件夹
          * */
-        File titleImg = new File(config+"/tmp/"+star.getStarTitleImg());
+        File titleImg = new File(config.globalFilePath+"/tmp/"+star.getStarTitleImg());
         if (titleImg.exists()) {
-            titleImg.renameTo(new File(config+"/star/"+star.getStarTitleImg()));
+            titleImg.renameTo(new File(config.globalFilePath+"/star/"+star.getStarTitleImg()));
             star.setStarTitle("/resource/star/"+star.getStarTitleImg());
         }
 
         for (String fileName : star.getStarImg().split(";")) {
-            File tmpImg = new File(config+"/tmp/"+fileName);
+            File tmpImg = new File(config.globalFilePath+"/tmp/"+fileName);
             if (tmpImg.exists()) {
-                tmpImg.renameTo(new File(config+"/star/"+fileName));
+                tmpImg.renameTo(new File(config.globalFilePath+"/star/"+fileName));
                 star.setStarTitle("/resource/star/"+fileName);
             }
         }

@@ -16,6 +16,7 @@ import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -62,17 +63,24 @@ public class NewsService {
         /*
         * 将处于临时文件夹的文件转移到业务文件夹
         * */
-        File titleImg = new File(config+"/tmp/"+news.getNewsTitleImg());
+        File titleImg = new File(config.globalFilePath+"/temp/"+news.getNewsTitleImg());
+
+
+
         if (titleImg.exists()) {
-            titleImg.renameTo(new File(config+"/news/"+news.getNewsTitleImg()));
+            boolean b = titleImg.renameTo(new File(config.globalFilePath + "/news/" + news.getNewsTitleImg()));
+            logger.info("将标题图片转移至业务文件夹，标题：{}结果：{}",news.getNewsTitle(),b);
             news.setNewsTitle("/resource/news/"+news.getNewsTitleImg());
+        }else{
+            logger.warn("标题图片不存在！标题：{}，目标位置：{}",news.getNewsTitle(),titleImg.getAbsolutePath());
         }
 
+
         for (String fileName : news.getNewsContentImg().split(";")) {
-            File tmpImg = new File(config+"/tmp/"+fileName);
+            File tmpImg = new File(config.globalFilePath+"/temp/"+fileName);
             if (tmpImg.exists()) {
-                tmpImg.renameTo(new File(config+"/news/"+fileName));
-                news.setNewsTitle("/resource/news/"+fileName);
+                tmpImg.renameTo(new File(config.globalFilePath+"/news/"+fileName));
+                news.setNewsContentImg(news.getNewsContentImg()+";/resource/news/"+fileName);
             }
         }
 

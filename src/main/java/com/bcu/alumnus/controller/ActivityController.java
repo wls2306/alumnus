@@ -25,68 +25,69 @@ public class ActivityController {
         return activityService.addActivity(activity);
     }
 
-    @GetMapping("/serch/passActPartId/{actPartId}")
+    @GetMapping("/pass/part/{actPartId}")
     @ApiOperation(value = "通过学部编号查找已审核的校园活动")
     public Message getActivitybyActPartId(@PathVariable("actPartId")String actPartId){
         return activityService.getActivityByActPartId(actPartId);
     }
 
-    @GetMapping("/serch/passActUserId/{actUserId}")
+    @GetMapping("/pass/user/{actUserId}")
     @ApiOperation(value = "通过创建人编号查找已审核的校园活动")
     public Message getActivitybyActUserId(@PathVariable("actUserId")String actUserId){
         return activityService.getActivityByActUserId(actUserId);
     }
 
-    @GetMapping("/serch/passActTypeSchool/{actPartId}")
-    @ApiOperation(value = "通过学部编号查找已审核的校园活动 以及 活动类型为校级的已审核校园活动")
+
+    @GetMapping("/pass/list/{actPartId}")
+    @ApiOperation(value = "【小程序活动列表】通过学部编号查找已审核的校园活动 以及 活动类型为校级的已审核校园活动")
     public Message getActivitybyActType(@PathVariable("actPartId")String actPartId){
         return activityService.getActivityByActPartIdAndActType(actPartId);
     }
 
-    @GetMapping("/serch/passActUserIdAndActStatus/{actUserId}and{actStatus}")
+    @GetMapping("/user/status/{actUserId}/{actStatus}")
     @ApiOperation(value = "通过创建人和活动状态查找活动")
     public Message getActivitybyActUserIdAndActStatus(@PathVariable("actUserId")String actUserId,@PathVariable("actStatus")String actStuts){
         return activityService.getActivityByActUserIdAndActStatus(actUserId,actStuts);
     }
 
-    @GetMapping("/serch/passActPartIdAll/{actPartId}")
+    @GetMapping("/part/{actPartId}")
     @ApiOperation(value = "通过学部编号查找所有校园活动")
     public Message getAllActivitybyActPartId(@PathVariable("actPartId")String actPartId){
         return activityService.getAllActivityByActPartId(actPartId);
     }
 
-    @GetMapping("/serch/allActivity")
+    @GetMapping("/all")
     @ApiOperation(value = "查找所有活动")
     public Message getAllActivity(){
         return activityService.getAllActivity();
     }
 
-    @GetMapping("/serch/passActStatus/{actStatus}")
+    @GetMapping("/status/{actStatus}")
     @ApiOperation(value = "通过活动状态查找活动")
     public Message getActivitybyActStatus(@PathVariable("actStatus")String actStatus){
         return activityService.getActivityByActStatus(actStatus);
     }
 
-    @GetMapping("/serch/passActType/{actType}")
-    @ApiOperation(value = "通过活动状态查找活动")
+    @GetMapping("/type/{actType}")
+    @ApiOperation(value = "通过活动类型查找活动")
     public Message getActivityByActType(@PathVariable("actType")String actType){
         return activityService.getActivityByActType(actType);
     }
 
-    @GetMapping("/serch/passActId/{actId}")
+    @GetMapping("/id/{actId}")
     @ApiOperation(value = "通过活动Id查找活动")
     public Message getActivityByActId(@PathVariable("actId")String actId){
         return activityService.getActivityByActId(actId);
     }
 
-    @GetMapping("/updata/passActId/{actId}")
+    @GetMapping("/verify/{actId}")
     @ApiOperation(value = "审核活动（根据活动编号将活动状态改为1）@UseToken(level=3)")
     @UseToken(level = 3)
     public Message auditActivityByActId(@PathVariable("actId")String actId){
         return activityService.updataActivityByActId("1",actId);
     }
 
-    @GetMapping("/audit/passActId/{actStatus}and{actId}")
+    @PutMapping("/status/{actId}/{actStatus}")
     @ApiOperation(value = "修改活动状态")
     public Message auditActivityByActId(@PathVariable("actStatus")String actStatus,@PathVariable("actId")String actId){
         return activityService.updataActivityByActId(actStatus,actId);

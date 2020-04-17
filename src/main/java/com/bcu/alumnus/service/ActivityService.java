@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.NotBlank;
 import java.io.File;
 import java.util.Date;
-import java.util.List;
 
 @Service
 @Validated
@@ -53,19 +51,18 @@ public class ActivityService {
         activity.setActStartTime(new Date());
         activity.setActStatus("0");
 
-        /*
-         * 将处于临时文件夹的文件转移到业务文件夹
+        /*         * 将处于临时文件夹的文件转移到业务文件夹
          * */
-        File titleImg = new File(config+"/tmp/"+activity.getActTitleImg());
+        File titleImg = new File(config.globalFilePath+"/tmp/"+activity.getActTitleImg());
         if (titleImg.exists()) {
-            titleImg.renameTo(new File(config+"/activitys/"+activity.getActTitleImg()));
+            titleImg.renameTo(new File(config.globalFilePath+"/activitys/"+activity.getActTitleImg()));
             activity.setActTitleImg("/resource/activitys/"+activity.getActTitleImg());
         }
 
         for (String fileName : activity.getActTitleImg().split(";")) {
-            File tmpImg = new File(config+"/tmp/"+fileName);
+            File tmpImg = new File(config.globalFilePath+"/tmp/"+fileName);
             if (tmpImg.exists()) {
-                tmpImg.renameTo(new File(config+"/activitys/"+fileName));
+                tmpImg.renameTo(new File(config.globalFilePath+"/activitys/"+fileName));
                 activity.setActTitleImg("/resource/activitys/"+fileName);
             }
         }
@@ -112,7 +109,7 @@ public class ActivityService {
      */
     public Message getActivityByActUserIdAndActStatus(String ActUserId,String ActStatus){
         logger.info("查找校园活动，通过创建用户编号{}，和活动状态{}",ActUserId,ActStatus);
-        return Message.success(null).add(activityRepository.getActivityByActUserIdaAndActStatus(ActUserId,ActStatus));
+        return Message.success(null).add(activityRepository.getActivityByActUserIdAndActStatus(ActUserId,ActStatus));
     }
 
     /**
@@ -132,7 +129,7 @@ public class ActivityService {
      */
     public Message getAllActivity(){
         logger.info("查找所有校园活动");
-        return Message.success(null).add(activityRepository.getActivity());
+        return Message.success(null).add(activityRepository.findAll());
     }
 
     /**

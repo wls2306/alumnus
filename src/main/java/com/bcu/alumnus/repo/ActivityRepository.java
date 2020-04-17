@@ -32,11 +32,11 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer>, Jp
 
     List<Activity> getActivityByActPartIdAndActTypeAndActStatusNot(String actPartId,String ActType,String Status);
 
-    List<Activity> getActivityByActUserIdaAndActStatus(String actUserId,String ActStatus);
+    List<Activity> getActivityByActUserIdAndActStatus(String actUserId,String ActStatus);
 
     List<Activity> getActivityByActPartId(String actPartId);
 
-    List<Activity> getActivity();
+    List<Activity> findAll();
 
     List<Activity> getActivityByActStatus(String actStatus);
 

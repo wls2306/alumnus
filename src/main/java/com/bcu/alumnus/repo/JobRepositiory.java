@@ -46,7 +46,7 @@ public interface JobRepositiory extends JpaRepository<Job,Integer> {
     Job getJobByjobId(Integer jobId);
 
 
-    int updateJobByjobId(Job job);
+//    int updateJobByjobId(Job job);
 
 
     List<Job> getJobByjobUserId(String jobUserId);

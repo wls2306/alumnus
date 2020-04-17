@@ -41,9 +41,9 @@ public class JobService {
           * 将处于临时文件夹的文件转移到业务文件夹
           * */
         for(String fileName:job.getJobEnviromentImg().split(";")) {
-             File tmpImg = new File(config + "/tmp/" + fileName);
+             File tmpImg = new File(config.globalFilePath + "/tmp/" + fileName);
              if (tmpImg.exists()) {
-                 tmpImg.renameTo(new File(config + "/job/" + fileName));
+                 tmpImg.renameTo(new File(config.globalFilePath + "/job/" + fileName));
                  job.setJobEnviromentImg("/resource/job/" + fileName);
              }
          }
@@ -157,9 +157,9 @@ public class JobService {
         String jobEducation=job.getJobEducation();
         String jobDetail=job.getJobDetail();
         for(String fileName:job.getJobEnviromentImg().split(";")) {
-            File tmpImg = new File(config + "/tmp/" + fileName);
+            File tmpImg = new File(config.globalFilePath + "/tmp/" + fileName);
             if (tmpImg.exists()) {
-                tmpImg.renameTo(new File(config + "/job/" + fileName));
+                tmpImg.renameTo(new File(config.globalFilePath + "/job/" + fileName));
                 job.setJobEnviromentImg("/resource/job/" + fileName);
             }
         }
