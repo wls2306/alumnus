@@ -2,6 +2,8 @@ package com.bcu.alumnus.config;
 
 
 import com.bcu.alumnus.AuthInterceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -23,13 +25,17 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Value("${spring.profiles.active}")
     private String env;
 
+    private Logger logger= LoggerFactory.getLogger(getClass());
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
         if (env.equals("dev"))
-            System.out.println("【开发环境不进行Token验证】");
-        else
+            logger.info("【开发环境不进行Token验证】");
+        else {
+            logger.info("【Token验证已启用，请在请求头中放置Token】");
             registry.addInterceptor(authInterceptor).addPathPatterns("/api/**");
+        }
     }
 
     @Override

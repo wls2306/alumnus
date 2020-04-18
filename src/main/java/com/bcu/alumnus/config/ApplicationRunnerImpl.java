@@ -9,6 +9,11 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 
+/**
+* @Author: Wls
+* @Date: 22:30 2020/4/18
+* @Description: 资源文件夹检测与创建&欢迎信息提示
+*/
 @Configuration
 public class ApplicationRunnerImpl implements ApplicationRunner {
 
