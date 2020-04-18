@@ -4,11 +4,14 @@ import com.bcu.alumnus.UseToken;
 import com.bcu.alumnus.entity.Message;
 import com.bcu.alumnus.entity.User;
 import com.bcu.alumnus.service.UserService;
+import com.bcu.alumnus.utils.JwtUtil;
+import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @Api(tags = "用户模块")
@@ -21,10 +24,25 @@ public class UserController {
     @PostMapping("/token")
     @ApiOperation(value = "使用用户名和密码获取用户token")
     public Message userLogin(String userId, String password){
-
         return userService.userLoginByUserIdAndPassword(userId, password);
     }
 
+    @GetMapping("/")
+    @ApiOperation(value = "获取当前token用户的信息")
+    public Message getUserByToken(String token)  {
+
+        if (token != null) {
+            try {
+                Claims claims = JwtUtil.resolveToken(token);
+                String userId = (String)claims.get("userId");
+                return userService.searchUserInfoByUserId(userId);
+            }catch (Exception e){
+                return Message.fail("token错误");
+            }
+
+        }
+        return Message.fail("token不存在");
+    }
 
     @GetMapping("/token")
     @ApiOperation(value = "使用小程序jsCode获取用户token")

@@ -18,10 +18,10 @@ public class JwtUtil {
     public static String createJwtToken(User u)
     {
         Map claims= new HashMap<>();
-        claims.put("userId",u.getUserOpenId());
+        claims.put("userId",u.getUserId());
         claims.put("userOpenId",u.getUserOpenId());
-        claims.put("userClassId",u.getUserOpenId());
-        claims.put("userPartId",u.getUserOpenId());
+        claims.put("userClassId",u.getUserClassId());
+        claims.put("userPartId",u.getUserPartId());
         claims.put("userType",u.getUserType());
         return Jwts.builder()
                 .setClaims(claims)

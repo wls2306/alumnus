@@ -100,18 +100,21 @@ public class UserService {
         return Message.success(null).add(rs);
     }
 
-//    /**
-//    * @Author: Wls
-//    * @Date: 15:05 2020/4/5
-//    * @Description: 查询用户信息
-//    */
-//    public Message searchUserInfoByUserId(String userId){
-//          User u= userRepository.getByUserId(userId);
-//          if (u!=null){
-//              return Message.success(null).add(u);
-//          }
-//        return Message.fail("用户未找到");
-//    }
+
+
+    /**
+    * @Author: Wls
+    * @Date: 15:05 2020/4/5
+    * @Description: 查询用户信息
+    */
+    public Message searchUserInfoByUserId(String userId){
+        logger.info("查找用户：{}",userId);
+          User u= userRepository.getUserByUserId(userId);
+          if (u!=null){
+              return Message.success(null).add(u);
+          }
+        return Message.fail("用户未找到");
+    }
 
 
 }
