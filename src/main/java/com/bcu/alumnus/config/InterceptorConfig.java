@@ -3,6 +3,7 @@ package com.bcu.alumnus.config;
 
 import com.bcu.alumnus.AuthInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
@@ -19,9 +20,16 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Resource
     private AuthInterceptor authInterceptor;
 
+    @Value("${spring.profiles.active}")
+    private String env;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authInterceptor).addPathPatterns("/api/**");
+
+        if (env.equals("dev"))
+            System.out.println("【开发环境不进行Token验证】");
+        else
+            registry.addInterceptor(authInterceptor).addPathPatterns("/api/**");
     }
 
     @Override
