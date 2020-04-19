@@ -3,8 +3,10 @@ package com.bcu.alumnus.repo;
 import com.bcu.alumnus.entity.Star;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,8 +26,10 @@ public interface StarRepository extends JpaRepository<Star,String> , JpaSpecific
      * 11. 通过主人公编号查询校园明星
      * 12. ...
      */
+    @Transactional
+    @Modifying(clearAutomatically = true)
     @Query(value = "update Star set starStatus=?1 where starId=?2")     
-    int updateStarStatusByStarId(String starStatus, String starId);
+    int updateStarStatusByStarId(String starStatus, int starId);
 
     int deleteByStarId(String starId);
 
@@ -35,7 +39,7 @@ public interface StarRepository extends JpaRepository<Star,String> , JpaSpecific
     @Query(value = "select * from star where star_status=?1 order by star_create_date desc ",nativeQuery = true)
     List<Star> getAllStar(String starStatus);
 
-    Star getStarByStarId(String starId);
+    Star getStarByStarId(int starId);
 
     //List<Star> getStarByUserId(String userId);
 
@@ -44,7 +48,7 @@ public interface StarRepository extends JpaRepository<Star,String> , JpaSpecific
     List<Star> getStarByStarStatus(String starStatus);
 
     @Query(value = "update Star set starLikeCount=?1 where starId=?2")
-    int updateStarLikeCountByStarId(String starLikeCount, String starId);
+    int updateStarLikeCountByStarId(int starLikeCount, int starId);
 
     List<Star> getStarByStarUserId(String starUserId);
 }

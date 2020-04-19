@@ -37,7 +37,7 @@ public class StarController {
     @PutMapping("/verify")
     @ApiOperation(value = "发布明星根据编号(审核)")
     @UseToken(level = 4)
-    public Message publishStarByStarId(String starId) {
+    public Message publishStarByStarId(int starId) {
         return starService.publishStarByStarId(starId);
     }
 
@@ -57,7 +57,7 @@ public class StarController {
 
     @GetMapping("/id/{starId}")
     @ApiOperation(value = "根据明星编号获取校园明星")
-    public Message getStarByStarId(@PathVariable("starId")String starId) {
+    public Message getStarByStarId(@PathVariable("starId")int starId) {
         return starService.getStarByStarId(starId);
     }
 
@@ -86,7 +86,7 @@ public class StarController {
     @PutMapping("/like/{starLikeCount}/{starId}")
     @ApiOperation(value = "根据校园明星编号更新点赞数量")
     @UseToken(level = 1)
-    public Message updateStarLikeCountByStarId(@PathVariable("starLikeCount")String starLikeCount, @PathVariable("starId")String starId) {
+    public Message updateStarLikeCountByStarId(@PathVariable("starLikeCount")int starLikeCount, @PathVariable("starId")int starId) {
         return starService.updateStarLikeCountByStarId(starLikeCount, starId);
     }
 

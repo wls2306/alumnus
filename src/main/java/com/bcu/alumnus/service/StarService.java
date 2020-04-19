@@ -77,7 +77,7 @@ public class StarService {
     * @Date: 22:19 2020/4/7
     * @Description: 发布明星根据编号(审核)
     */
-    public Message publishStarByStarId(String starId){
+    public Message publishStarByStarId(int starId){
         logger.info("明星状态变更，明星编号：{}，变更状态：{}",starId,"1");
         if (starRepository.updateStarStatusByStarId("1",starId)>0) {
             return Message.success(null);
@@ -124,7 +124,7 @@ public class StarService {
     * @Date: 22:41 2020/4/7
     * @Description: 根据明星编号获取校园明星
     */
-    public Message getStarByStarId(String starId){
+    public Message getStarByStarId(int starId){
         logger.info("根据明星编号获取明星，明星编号：{}",starId);
         Star s = starRepository.getStarByStarId(starId);
         if(s != null){
@@ -169,7 +169,7 @@ public class StarService {
     * @Date: 22:57 2020/4/7
     * @Description: 根据校园明星编号更新点赞数量
     */
-    public Message updateStarLikeCountByStarId(String starLikeCount, String starId){
+    public Message updateStarLikeCountByStarId(int starLikeCount, int starId){
         logger.info("根据校园明星编号更新点赞数量，明星编号：{}，点赞数量：{}",starId,starLikeCount);
         if(starRepository.updateStarLikeCountByStarId(starLikeCount,starId)>0) {
             return Message.success(null);
