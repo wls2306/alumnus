@@ -3,8 +3,10 @@ package com.bcu.alumnus.repo;
 import com.bcu.alumnus.entity.StarLike;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,10 +21,7 @@ public interface StarLikeRepository extends JpaRepository<StarLike,String> , Jpa
      * 6. 通过点赞编号、用户编号删除该点赞记录 @UseToken(level=1)
      * 7. ...
      */
-    @Query(value = "insert into star_like values(?,?)",nativeQuery = true)
-    int insertStarLike(Integer starId, String userId);
-
-    List<StarLike> getStarLikeByStarId(String starId);
+    List<StarLike> getStarLikeByStarId(int starId);
 
     @Query(value = "select count(id) from star_like where star_id=?1",nativeQuery = true)
     int getStarLikeCountByStarId(String starId);
@@ -32,6 +31,8 @@ public interface StarLikeRepository extends JpaRepository<StarLike,String> , Jpa
     @Query(value = "select count(id) from star_like where user_id=?1",nativeQuery = true)
     int getStarLikeCountByUserId(String userId);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
     @Query(value = "delete from star_like where id=?1 and user_id=?2",nativeQuery = true)
-    int deleteStarLikeByIdAndUserId(String id, String userId);
+    int deleteByIdAndUserId(int id, String userId);
 }

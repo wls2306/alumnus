@@ -27,7 +27,7 @@ public class StarLikeController {
 
     @GetMapping("/starId/{starId}")
     @ApiOperation(value = "通过明星编号查找点赞记录")
-    public Message getStarLikeByStarId(@PathVariable("starId")String starId) {
+    public Message getStarLikeByStarId(@PathVariable("starId")int starId) {
         return starLikeService.getStarLikeByStarId(starId);
     }
 
@@ -38,13 +38,13 @@ public class StarLikeController {
     }
 
     @GetMapping("/userId/{userId}")
-    @ApiOperation(value = "通过明星编号查找点赞记录")
+    @ApiOperation(value = "通过用户编号查找点赞记录")
     public Message getStarLikeByUserId(@PathVariable("userId")String userId) {
         return starLikeService.getStarLikeByUserId(userId);
     }
 
     @GetMapping("/countByUserId/{cUserId}")
-    @ApiOperation(value = "通过明星编号统计点赞数量")
+    @ApiOperation(value = "通过用户编号统计点赞数量")
     public Message getStarLikeCountByUserId(@PathVariable("cUserId")String userId) {
         return starLikeService.getStarLikeCountByUserId(userId);
     }
@@ -52,7 +52,7 @@ public class StarLikeController {
     @PostMapping("/delete/{id}/{dUserId}")
     @ApiOperation(value = "通过点赞编号、用户编号删除该点赞记录")
     @UseToken(level = 1)
-    public Message deleteStarLikeByIdAndUserId(@PathVariable("id")String id, @PathVariable("dUserId")String userId) {
-        return starLikeService.deleteStarLikeByIdAndUserId(id, userId);
+    public Message deleteStarLikeByIdAndUserId(@PathVariable("id")int id, @PathVariable("dUserId")String userId) {
+        return starLikeService.deleteByIdAndUserId(id, userId);
     }
 }

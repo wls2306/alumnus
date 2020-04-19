@@ -38,7 +38,8 @@ public class StarLikeService {
     */
     public Message insertStarLike(StarLike starLike){
         logger.info("添加点赞记录，明星编号：{}，用户编号：{}",starLike.getStarId(),starLike.getUserId());
-        return Message.success(null).add(starLikeRepository.insertStarLike(starLike.getStarId(), starLike.getUserId()));
+        StarLike rs = starLikeRepository.save(starLike);
+        return Message.success(null).add(rs);
     }
 
     /**
@@ -46,7 +47,7 @@ public class StarLikeService {
     * @Date: 14:20 2020/4/11
     * @Description: 通过明星编号查找点赞记录
     */
-    public Message getStarLikeByStarId(String starId){
+    public Message getStarLikeByStarId(int starId){
         logger.info("通过明星编号查找点赞记录,明星编号：{}",starId);
         return Message.success(null).add(starLikeRepository.getStarLikeByStarId(starId));
     }
@@ -86,9 +87,9 @@ public class StarLikeService {
     * @Date: 14:40 2020/4/11
     * @Description: 通过点赞编号、用户编号删除该点赞记录
     */
-    public Message deleteStarLikeByIdAndUserId(String id, String userId){
+    public Message deleteByIdAndUserId(int id, String userId){
         logger.info("通过点赞编号、用户编号删除该点赞记录，点赞编号：{}，用户编号：{}",id,userId);
-        if (starLikeRepository.deleteStarLikeByIdAndUserId(id,userId) > 0) {
+        if (starLikeRepository.deleteByIdAndUserId(id,userId) > 0) {
             return Message.success(null);
         }
         return Message.fail(null);
