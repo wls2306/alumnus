@@ -91,7 +91,7 @@ public class StarService {
     * @Description: 根据编号删除校园明星
     */
     @Transactional
-    public Message deleteStarByStarId(String starId){
+    public Message deleteStarByStarId(int starId){
         logger.info("删除明星，编号是：{}",starId);
         if (starRepository.deleteByStarId(starId)>0) {
             return Message.success(null);

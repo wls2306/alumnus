@@ -31,7 +31,7 @@ public interface StarRepository extends JpaRepository<Star,String> , JpaSpecific
     @Query(value = "update Star set starStatus=?1 where starId=?2")     
     int updateStarStatusByStarId(String starStatus, int starId);
 
-    int deleteByStarId(String starId);
+    int deleteByStarId(int starId);
 
     @Query(value = "select * from star where star_part_id=?1 and star_status=1 order by star_create_date desc ",nativeQuery = true)
     List<Star> getStarByStarPartIdAndAndStarStatus(String partId);

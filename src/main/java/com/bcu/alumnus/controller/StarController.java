@@ -44,15 +44,15 @@ public class StarController {
     @DeleteMapping("/{starId}")
     @ApiOperation(value = "根据编号删除校园明星")
     @UseToken(level = 4)
-    public Message deleteStarByStarId(@PathVariable("starId")String starId) {
+    public Message deleteStarByStarId(@PathVariable("starId")int starId) {
         return starService.deleteStarByStarId(starId);
     }
 
     @GetMapping("/pass/all")
     @ApiOperation(value = "查找所有状态为可见的校园明星")
     @JsonView(Star.StarSimpleView.class)
-    public Message getAllStar(String starStatus) {
-        return starService.getAllStar(starStatus);
+    public Message getAllStar() {
+        return starService.getAllStar("1");
     }
 
     @GetMapping("/id/{starId}")
