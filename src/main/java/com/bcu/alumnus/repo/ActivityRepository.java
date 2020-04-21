@@ -42,9 +42,12 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer>, Jp
 
     List<Activity> getActivityByActType(String ActType);
 
-    List<Activity> getActivityByActId(String ActId);
+    List<Activity> getActivityByActId(int ActId);
 
     @Query("update Activity set actStatus=?1 where actId=?2")
     int updataActStatusByActId(String ActStatus,String ActId);
+
+    @Query(value = "select act_member_way from activity where act_id=?1",nativeQuery = true)
+    String getActMemberWay(int ActId);
 
 }

@@ -76,7 +76,7 @@ public class ActivityController {
 
     @GetMapping("/id/{actId}")
     @ApiOperation(value = "通过活动Id查找活动")
-    public Message getActivityByActId(@PathVariable("actId")String actId){
+    public Message getActivityByActId(@PathVariable("actId")int actId){
         return activityService.getActivityByActId(actId);
     }
 

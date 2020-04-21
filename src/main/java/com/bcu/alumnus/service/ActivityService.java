@@ -157,7 +157,7 @@ public class ActivityService {
      * @Date: 21:51 2020/4/12
      * @Description: 通过活动编号查找活动
      */
-    public Message getActivityByActId(String ActId){
+    public Message getActivityByActId(int ActId){
         logger.info("通过活动编号查找活动,活动id{}",ActId);
         return Message.success(null).add(activityRepository.getActivityByActId(ActId));
     }
