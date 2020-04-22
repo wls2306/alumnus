@@ -47,8 +47,10 @@ public interface StarRepository extends JpaRepository<Star,String> , JpaSpecific
 
     List<Star> getStarByStarStatus(String starStatus);
 
-    @Query(value = "update Star set starLikeCount=?1 where starId=?2")
-    int updateStarLikeCountByStarId(int starLikeCount, int starId);
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update Star set starLikeCount=starLikeCount+1 where starId=?1")
+    int updateStarLikeCountByStarId(int starId);
 
     List<Star> getStarByStarUserId(String starUserId);
 }

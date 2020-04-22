@@ -169,9 +169,9 @@ public class StarService {
     * @Date: 22:57 2020/4/7
     * @Description: 根据校园明星编号更新点赞数量
     */
-    public Message updateStarLikeCountByStarId(int starLikeCount, int starId){
-        logger.info("根据校园明星编号更新点赞数量，明星编号：{}，点赞数量：{}",starId,starLikeCount);
-        if(starRepository.updateStarLikeCountByStarId(starLikeCount,starId)>0) {
+    public Message updateStarLikeCountByStarId(int starId){
+        logger.info("根据校园明星编号更新点赞数量，明星编号：{}",starId);
+        if(starRepository.updateStarLikeCountByStarId(starId)>0) {
             return Message.success(null);
         }
         return Message.fail("操作失败，可能是明星编号错误，请检查");

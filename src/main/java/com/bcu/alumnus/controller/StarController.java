@@ -83,11 +83,11 @@ public class StarController {
         return starService.getStarByStarStatus(starStatus);
     }
 
-    @PutMapping("/like/{starLikeCount}/{starId}")
+    @PutMapping("/like/{starId}")
     @ApiOperation(value = "根据校园明星编号更新点赞数量")
     @UseToken(level = 1)
-    public Message updateStarLikeCountByStarId(@PathVariable("starLikeCount")int starLikeCount, @PathVariable("starId")int starId) {
-        return starService.updateStarLikeCountByStarId(starLikeCount, starId);
+    public Message updateStarLikeCountByStarId(@PathVariable("starId")int starId) {
+        return starService.updateStarLikeCountByStarId(starId);
     }
 
     @GetMapping("/user/{starUserId}")
