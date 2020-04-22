@@ -18,7 +18,7 @@ public class ApplyController {
     private ApplyService applyService;
 
     @PostMapping("/")
-    @ApiOperation(value = "根据活动编号查询已录取的报名信息")
+    @ApiOperation(value = "添加报名信息，并根据活动的录取形式，生成报名状态（若报名不须审核则直接录取状态）")
     public Message insertApply(Apply apply){
         return applyService.insertApply(apply);
     }
