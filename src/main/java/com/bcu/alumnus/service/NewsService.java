@@ -1,6 +1,7 @@
 package com.bcu.alumnus.service;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.bcu.alumnus.config.GlobalConfig;
 import com.bcu.alumnus.entity.Message;
 import com.bcu.alumnus.entity.News;
@@ -16,7 +17,6 @@ import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class NewsService {
      * 文章发布时，携带后台返回的文件名，后台从临时文件夹中将文件移动到业务目录
      * 定时任务，每天凌晨三点清空临时文件夹的所有内容
      */
-    public Message insertNews(News news)
+    public Message<News> insertNews(News news)
     {
         logger.info("添加校园新闻，标题：{}，学部：{}",news.getNewsTitle(),news.getNewsPartId());
         news.setNewsDate(new Date());
@@ -89,6 +89,20 @@ public class NewsService {
         return Message.success(null).add(rs);
     }
 
+
+    /**
+    * @Author: Wls
+    * @Date: 13:01 2020/4/27
+    * @Description: 获取所有新闻列表
+     * @return
+    */
+    public Message<List<News>> getAllNews(){
+        logger.info(JSONUtil.toJsonStr(newsRepository.findAll()));
+        return Message.success(null).add(newsRepository.findAll());
+//        return  new Message<List<News>>(true,"操作成功",newsRepository.findAll());
+    }
+
+
     /**
     * @Author: Wls
     * @Date: 9:43 2020/4/7
@@ -106,11 +120,12 @@ public class NewsService {
     * @Date: 9:44 2020/4/7
     * @Description: 根据新闻编号获取新闻详情
     */
-    public Message getNewsDetailByNewsId(String newsId){
+    public Message<News> getNewsDetailByNewsId(String newsId){
         logger.info("获取校园新闻详情，编号：{}",newsId);
-        News n=newsRepository.getNewsByNewsId(newsId);
+        News n=newsRepository.getNewsByNewsId(Integer.valueOf(newsId));
+
         if (n != null) {
-            return Message.success(null).add(n);
+            return  Message.success(null).add(n);
         }
         logger.info("新闻未找到，编号：{}",newsId);
         return Message.fail("新闻未找到");
@@ -122,7 +137,7 @@ public class NewsService {
     * @Date: 10:11 2020/4/7
     * @Description: 根据学部编号获取新闻
     */
-    public Message getNewsByPartId(String partId){
+    public Message<List<News>> getNewsByPartId(String partId){
         logger.info("根据学部编号获取新闻，学部编号：{}",partId);
         return Message.success(null).add(newsRepository.getNewsByNewsPartId(partId));
     }
@@ -132,8 +147,9 @@ public class NewsService {
     * @Date: 10:11 2020/4/7
     * @Description: 根据新闻类型获取新闻
     */
-    public Message getNewsByNewsType(String newsType){
+    public Message<List<News>> getNewsByNewsType(String newsType){
         logger.info("根据新闻类型获取新闻，新闻类型：{}",newsType);
+        logger.info(JSONUtil.toJsonStr(newsRepository.getNewsByNewsType(newsType)));
         return Message.success(null).add(newsRepository.getNewsByNewsType(newsType));
     }
 
@@ -142,7 +158,7 @@ public class NewsService {
     * @Date: 9:44 2020/4/7
     * @Description: 校园新闻的条件搜索
     */
-    public Message getNewsConditionSearch(String newsId,String newsPartId,String newsType,String newsStatus)
+    public Message<List<News>> getNewsConditionSearch(String newsId,String newsPartId,String newsType,String newsStatus)
     {
         Specification<UserInfo> query= (Specification<UserInfo>) (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates=new ArrayList<>();
@@ -174,7 +190,7 @@ public class NewsService {
     * @Date: 10:15 2020/4/7
     * @Description: 发布新闻根据编号
     */
-    public Message publishNewsByNewsId(String newsId){
+    public Message<List<News>> publishNewsByNewsId(String newsId){
         logger.info("新闻状态变更，新闻编号：{}，变更状态：{}",newsId,"1");
         if (newsRepository.updateNewsStatusByNewsId("1",newsId)>0) {
             return Message.success(null);

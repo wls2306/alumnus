@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.annotation.Resource;
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Validated
@@ -33,7 +34,7 @@ public class JobService {
      * @Date: 12:59 2020/4/10
      * @Description: 添加岗位内推记录
      */
-     public Message insertJob(Job job){
+     public Message<Job> insertJob(Job job){
          logger.info("添加岗位内推记录");
          job.setJobCreateDate(new Date());
          job.setJobStatus("1");
@@ -58,7 +59,7 @@ public class JobService {
      * @Date: 13:03 2020/4/10
      * @Description: 查询学部编号、以及岗位类型为校级的岗位内推信息，状态均为可见，时间倒序排列
      */
-    public Message getJobInfoByjobPartIdandjobtype2(String jobPartId){
+    public Message<List<Job>> getJobInfoByjobPartIdandjobtype2(String jobPartId){
         logger.info("查询学部编号、以及岗位类型为校级的岗位内推信息,学部：{}",jobPartId);
         return Message.success(null).add(jobRepositiory.getJobInfoByjobPartIdandjobtype2(jobPartId));
     }
@@ -68,7 +69,7 @@ public class JobService {
      * @Date: 13:15 2020/4/10
      * @Description: 通过学部编号查询可见的岗位内推信息
      */
-    public Message getJobInfoByjobPartId(String jobPartId){
+    public Message<List<Job>> getJobInfoByjobPartId(String jobPartId){
          logger.info("通过学部编号查询可见的岗位内推信息,学部：{}",jobPartId);
          return Message.success(null).add(jobRepositiory.getJobInfoByjobPartId(jobPartId));
      }
@@ -78,7 +79,7 @@ public class JobService {
      * @Date: 13:19 2020/4/10
      * @Description: 通过学部编号查询学部内的内推信息 @UseToken(level=3)
      */
-    public Message getJobInfoInPartByByjobPartId(String jobPartId){
+    public Message<List<Job>> getJobInfoInPartByByjobPartId(String jobPartId){
         logger.info("通过学部编号查询学部内的内推信息,学部：{}",jobPartId);
         return Message.success(null).add(jobRepositiory.getJobInfoInPartByByjobPartId(jobPartId));
     }
@@ -88,7 +89,7 @@ public class JobService {
      * @Date: 13:25 2020/4/10
      * @Description: 根据状态查询内推信息
      */
-    public Message getJobInfoByjobstatus(String jobstatus){
+    public Message<List<Job>> getJobInfoByjobstatus(String jobstatus){
         logger.info("根据状态查询内推信息，状态：{}",jobstatus);
         return Message.success(null).add(jobRepositiory.getJobInfoByjobstatus(jobstatus));
     }
@@ -98,7 +99,7 @@ public class JobService {
      * @Date: 13:30 2020/4/10
      * @Description: 查询所有岗位内推信息 @UseToken(level=4)
      */
-    public Message getAllJobInfo(){
+    public Message<List<Job>> getAllJobInfo(){
         logger.info("查询所有岗位内推信息");
         return Message.success(null).add(jobRepositiory.getAllJobInfo());
     }
@@ -134,7 +135,7 @@ public class JobService {
      * @Date: 13:59 2020/4/10
      * @Description: 通过内推编号查询内推信息
      */
-    public Message getJobByjobId(Integer jobId){
+    public Message<Job> getJobByjobId(Integer jobId){
         logger.info("通过内推编号查询内推信息，编号：{}",jobId);
         return Message.success(null).add(jobRepositiory.getJobByjobId(jobId));
     }
@@ -180,7 +181,7 @@ public class JobService {
      * @Date: 14:19 2020/4/10
      * @Description: 通过推荐人编号获取所有内推信息
      */
-    public Message getJobByjobUserId(String jobUserId){
+    public Message<List<Job>> getJobByjobUserId(String jobUserId){
         logger.info("通过推荐人编号获取所有内推信息，编号：{}",jobUserId);
         return Message.success(null).add(jobRepositiory.getJobByjobUserId(jobUserId));
     }

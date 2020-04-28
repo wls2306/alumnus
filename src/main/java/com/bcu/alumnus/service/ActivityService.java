@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.annotation.Resource;
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Validated
@@ -46,7 +47,7 @@ public class ActivityService {
      * @Date: 15:18 2020/4/8
      * @Description: 添加校园活动，初始状态为0，待审核,活动创建时间为当前时间 @UseToken(level=1)
      */
-    public Message addActivity(Activity activity){
+    public Message<Activity> addActivity(Activity activity){
         logger.info("添加校园活动. 编号：{}，标题：{}",activity.getActId(),activity.getActTitle());
         activity.setActStartTime(new Date());
         activity.setActStatus("0");
@@ -77,7 +78,7 @@ public class ActivityService {
      * @Date: 16:18 2020/4/8
      * @Description: 通过学部编号查找已审核的校园活动
      */
-    public Message getActivityByActPartId(String ActPartId){
+    public Message<List<Activity>> getActivityByActPartId(String ActPartId){
         logger.info("通过学部编号查找已审核的校园活动，学部编号{}",ActPartId);
         return Message.success(null).add(activityRepository.getActivityByActPartIdAndActStatusNot(ActPartId,"0"));
     }
@@ -87,7 +88,7 @@ public class ActivityService {
      * @Date: 16:52 2020/4/8
      * @Description: 通过创建人编号查找已审核的校园活动
      */
-    public Message getActivityByActUserId(String ActUserId){
+    public Message<List<Activity>> getActivityByActUserId(String ActUserId){
         logger.info("通过创建人编号查找已审核的校园活动，创建人编号{}",ActUserId);
         return Message.success(null).add(activityRepository.getActivityByActUserIdAndActStatusNot(ActUserId,"0"));
     }
@@ -97,7 +98,7 @@ public class ActivityService {
      * @Date: 18:11 2020/4/8
      * @Description: .通过学部编号查找已审核的校园活动 以及 活动类型为校级的已审核校园活动
      */
-    public Message getActivityByActPartIdAndActType(String ActPartId){
+    public Message<List<Activity>> getActivityByActPartIdAndActType(String ActPartId){
         logger.info("活动类型为校级的已审核校园活动");
         return Message.success(null).add(activityRepository.getActivityByActPartIdAndActTypeAndActStatusNot(ActPartId,"2","0"));
     }
@@ -107,7 +108,7 @@ public class ActivityService {
      * @Date: 21:17 2020/4/8
      * @Description: 通过创建人编号和活动状态查找活动
      */
-    public Message getActivityByActUserIdAndActStatus(String ActUserId,String ActStatus){
+    public Message<List<Activity>> getActivityByActUserIdAndActStatus(String ActUserId,String ActStatus){
         logger.info("查找校园活动，通过创建用户编号{}，和活动状态{}",ActUserId,ActStatus);
         return Message.success(null).add(activityRepository.getActivityByActUserIdAndActStatus(ActUserId,ActStatus));
     }
@@ -117,7 +118,7 @@ public class ActivityService {
      * @Date: 21:36 2020/4/8
      * @Description: 通过学部编号查找所有活动
      */
-    public Message getAllActivityByActPartId(String ActPartId){
+    public Message<List<Activity>> getAllActivityByActPartId(String ActPartId){
         logger.info("查找所有校园活动，通过学部编号",ActPartId);
         return Message.success(null).add(activityRepository.getActivityByActPartId(ActPartId));
     }
@@ -127,7 +128,7 @@ public class ActivityService {
      * @Date: 13:40 2020/4/9
      * @Description: 查找所有活动
      */
-    public Message getAllActivity(){
+    public Message<List<Activity>> getAllActivity(){
         logger.info("查找所有校园活动");
         return Message.success(null).add(activityRepository.findAll());
     }
@@ -137,7 +138,7 @@ public class ActivityService {
      * @Date: 13:44 2020/4/9
      * @Description: 通过活动状态查找所有活动
      */
-    public Message getActivityByActStatus(String ActStatus){
+    public Message<List<Activity>> getActivityByActStatus(String ActStatus){
         logger.info("查找所有校园活动，活动状态{}",ActStatus);
         return Message.success(null).add(activityRepository.getActivityByActStatus(ActStatus));
     }
@@ -147,7 +148,7 @@ public class ActivityService {
      * @Date: 13:59 2020/4/9
      * @Description: 通过活动状态查找所有活动
      */
-    public Message getActivityByActType(String ActType){
+    public Message<List<Activity>> getActivityByActType(String ActType){
         logger.info("通过活动状态查找所有活动,活动类型{}",ActType);
         return Message.success(null).add(activityRepository.getActivityByActType(ActType));
     }
@@ -157,7 +158,7 @@ public class ActivityService {
      * @Date: 21:51 2020/4/12
      * @Description: 通过活动编号查找活动
      */
-    public Message getActivityByActId(int ActId){
+    public Message<Activity> getActivityByActId(int ActId){
         logger.info("通过活动编号查找活动,活动id{}",ActId);
         return Message.success(null).add(activityRepository.getActivityByActId(ActId));
     }

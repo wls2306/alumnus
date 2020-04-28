@@ -3,6 +3,7 @@ package com.bcu.alumnus.service;
 import com.bcu.alumnus.config.GlobalConfig;
 import com.bcu.alumnus.entity.Message;
 import com.bcu.alumnus.entity.Star;
+import com.bcu.alumnus.entity.User;
 import com.bcu.alumnus.repo.StarRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -45,7 +47,7 @@ public class StarService {
     * @Date: 21:20 2020/4/7
     * @Description: 新增校园明星
     */
-    public Message insertStar(Star star){
+    public Message<Star> insertStar(Star star){
         logger.info("添加校园明星，标题：{}，学部：{}",star.getStarTitle(),star.getStarPartId());
         star.setStarCreateDate(new Date());
         star.setStarStatus("0");
@@ -104,7 +106,7 @@ public class StarService {
      * @Date: 22:12 2020/4/7
      * @Description: 通过学部编号查找状态为可见的校园明星
      */
-    public Message getStarByStarPartIdAndAndStarStatus(String partId){
+    public Message<List<Star>> getStarByStarPartIdAndAndStarStatus(String partId){
         logger.info("通过学部编号查找状态为可见的校园明星，学部：{}",partId);
         return Message.success(null).add(starRepository.getStarByStarPartIdAndAndStarStatus(partId));
     }
@@ -114,7 +116,7 @@ public class StarService {
     * @Date: 22:28 2020/4/7
     * @Description: 查找所有状态为可见的校园明星
     */
-    public Message getAllStar(String starStatus){
+    public Message<List<Star>> getAllStar(String starStatus){
         logger.info("根据状态获取明星，明星状态：{}",starStatus);
         return Message.success(null).add(starRepository.getAllStar(starStatus));
     }
@@ -124,7 +126,7 @@ public class StarService {
     * @Date: 22:41 2020/4/7
     * @Description: 根据明星编号获取校园明星
     */
-    public Message getStarByStarId(int starId){
+    public Message<Star> getStarByStarId(int starId){
         logger.info("根据明星编号获取明星，明星编号：{}",starId);
         Star s = starRepository.getStarByStarId(starId);
         if(s != null){
@@ -149,7 +151,7 @@ public class StarService {
     * @Date: 22:51 2020/4/7
     * @Description: 根据学部编号获取校园明星
     */
-    public Message getStarByStarPartId(String starPartId){
+    public Message<List<Star>> getStarByStarPartId(String starPartId){
         logger.info("根据学部编号获取校园明星，学部编号：{}",starPartId);
         return Message.success(null).add(starRepository.getStarByStarPartId(starPartId));
     }
@@ -159,7 +161,7 @@ public class StarService {
     * @Date: 22:54 2020/4/7
     * @Description: 根据可见状态获取校园明星
     */
-    public Message getStarByStarStatus(String starStatus){
+    public Message<List<Star>> getStarByStarStatus(String starStatus){
         logger.info("根据可见状态获取校园明星，可见状态：{}",starStatus);
         return Message.success(null).add(starRepository.getStarByStarStatus(starStatus));
     }
@@ -182,7 +184,7 @@ public class StarService {
     * @Date: 23:02 2020/4/7
     * @Description: 根据主人公编号获取校园明星
     */
-    public Message getStarByStarUserId(String starUserId){
+    public Message<List<Star>> getStarByStarUserId(String starUserId){
         logger.info("根据主人公编号获取校园明星，主人公编号：{}",starUserId);
         return Message.success(null).add(starRepository.getStarByStarUserId(starUserId));
     }

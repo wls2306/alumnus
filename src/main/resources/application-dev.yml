@@ -1,11 +1,16 @@
+env: DEV
+
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://cdb-1hfsdow8.bj.tencentcdb.com:10032/bcu_alumnus?useSSL=false
-    username: root
-    password: wangleishu99
+    url: ${${env}.mysql-url}
+    username: ${${env}.mysql-username}
+    password: ${${env}.mysql-password}
   jpa:
     show-sql: true
+  profiles:
+    include: constant
+
 
 #  #外部文件配置
 #  mvc:
@@ -14,7 +19,7 @@ spring:
 #    static-locations: file:C:/community-res/
 
 gen:
-  file-path: C:/alumnus-res/
+  file-path: ${${env}.file-path}
 
 server:
   servlet:

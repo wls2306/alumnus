@@ -14,6 +14,10 @@ import javax.persistence.Id;
 @Entity
 @Data
 public class Activity {
+
+    public interface ActivitySimpleView extends Message.UnionSimpleView{};
+
+
     /**
      * 活动编号
      */

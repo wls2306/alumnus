@@ -19,6 +19,8 @@ public interface ApplyRepository extends JpaRepository<Apply,Integer>, JpaSpecif
 
     List<Apply> getApplyByApplyUserIdAndApplyStatus(String ApplyUserId,String ApplyStatus);
 
+    List<Apply> getApplyByApplyActivityId(int activityId);
+
     int countApplyByApplyId(int ApplyId);
 
     int countApplyByApplyIdAndApplyStatus(int ApplyId,String ApplyStatus);

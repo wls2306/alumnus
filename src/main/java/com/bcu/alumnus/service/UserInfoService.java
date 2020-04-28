@@ -6,6 +6,7 @@ import com.bcu.alumnus.entity.User;
 import com.bcu.alumnus.entity.UserInfo;
 import com.bcu.alumnus.repo.UserInfoRepository;
 import com.bcu.alumnus.repo.UserRepository;
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
@@ -32,18 +33,23 @@ public class UserInfoService {
     @Resource
     private UserInfoRepository userInfoRepository;
 
+    @Resource
+    private PartService partService;
+
     /**
     * @Author: Wls
     * @Date: 13:15 2020/4/6
     * @Description: 根据用户编号查找用户详细信息
      */
-    public Message getUserInfoByUserId(@NotBlank(message="userId不得为空") String userId){
+    public Message<UserInfo> getUserInfoByUserId(@NotBlank(message="userId不得为空") String userId){
         logger.info("查询用户详细信息：{}",userId);
         UserInfo u=userInfoRepository.getUserInfoByUserId(userId);
-        if (u != null) {
-            Message.success(null).add(u);
+        logger.info("{}",u.toString());
+        if (Strings.isNotBlank(u.getUserId())) {
+            return Message.success(null).add(u);
         }
         return Message.fail("用户未找到");
+
     }
 
     /**
@@ -65,7 +71,7 @@ public class UserInfoService {
     * @Date: 13:15 2020/4/6
     * @Description: 根据班级名称查找用户详细信息
      */
-    public Message getUserInfoByClassName(@NotBlank(message="userClassName不得为空")String className){
+    public Message<List<UserInfo>> getUserInfoByClassName(@NotBlank(message="userClassName不得为空")String className){
         logger.info("根据班级查找用户:{}",className);
         return Message.success(null).add(userInfoRepository.getUserInfoByUserClassName(className));
     }
@@ -75,8 +81,18 @@ public class UserInfoService {
     * @Date: 13:19 2020/4/6
     * @Description: 根据学部名称查找用户详细信息
     */
-    public Message getUserInfoByPartName(@NotBlank(message = "partName不得为空") String partName){
+    public Message<List<UserInfo>> getUserInfoByPartName(@NotBlank(message = "partName不得为空") String partName){
         logger.info("根据学部查找用户:{}",partName);
+        return Message.success(null).add(userInfoRepository.getUserInfoByUserPartName(partName));
+    }
+
+    /**
+    * @Author: Wls
+    * @Date: 16:03 2020/4/21
+    * @Description: 根据学部编号查找用户详细信息
+    */
+    public Message<List<UserInfo>> getUserInfoByUserPartId(@NotBlank(message = "partId 不得为空")String partId){
+        String partName = partService.findPartNameByPartId(partId);
         return Message.success(null).add(userInfoRepository.getUserInfoByUserPartName(partName));
     }
 
@@ -106,8 +122,6 @@ public class UserInfoService {
 
 
 
-
-
     /**
     * @Author: Wls
     * @Date: 14:32 2020/4/6
@@ -129,7 +143,7 @@ public class UserInfoService {
      * 来源：简书
      * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
     */
-    public Message getUserInfoConditionSearch(String userId,String userName,String className,String partName,String level,String phone)
+    public Message<List<UserInfo>> getUserInfoConditionSearch(String userId,String userName,String className,String partName,String level,String phone)
     {
         Specification<UserInfo> query=new Specification<UserInfo>() {
             @Override

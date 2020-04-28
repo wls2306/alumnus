@@ -1,13 +1,14 @@
 server:
-  port: 8088
+  port: 8080
 spring:
   profiles:
     active: dev
+    include: constant
 
 
 wechat:
-  appId: 888888
-  secret: 888888
+  appId: ${appid}
+  secret: ${secret}
 
 
 

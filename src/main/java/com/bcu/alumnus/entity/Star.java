@@ -16,7 +16,7 @@ import javax.persistence.Id;
 @Entity
 public class Star {
 
-    public interface StarSimpleView{}
+    public interface StarSimpleView extends Message.UnionSimpleView {}
 
 
     /**

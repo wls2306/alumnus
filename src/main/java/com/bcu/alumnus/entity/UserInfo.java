@@ -1,5 +1,6 @@
 package com.bcu.alumnus.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
@@ -64,6 +65,7 @@ public class UserInfo {
      * 用户生日
      */
     @ApiModelProperty(value = "用户生日")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date userBirthday;
 
     /**
@@ -83,6 +85,7 @@ public class UserInfo {
     /**
      * 上一次资料更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     @ApiModelProperty(value = "上一次资料更新时间")
     private Date userUpdateTime;
 }

@@ -14,6 +14,9 @@ import javax.persistence.Id;
 @Entity
 @Data
 public class Part {
+
+    public interface PartSimpleView extends Message.UnionSimpleView{}
+
     /**
      * 学部编号
      */

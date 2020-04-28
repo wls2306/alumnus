@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Validated
@@ -28,7 +29,7 @@ public class ApplyService {
      * @Date: 15:55 2020/4/21
      * @Description:添加报名信息
      */
-    public Message insertApply(Apply apply){
+    public Message<Apply> insertApply(Apply apply){
         logger.info("添加活动申请，活动编号{}，报名者姓名{}",apply.getApplyId(),apply.getApplyUserName());
         if(activityRepository.getActMemberWay(apply.getApplyId()).equals("1")){
             apply.setApplyStatus("0");
@@ -45,7 +46,7 @@ public class ApplyService {
      * @Date: 10:29 2020/4/20
      * @Description: 根据活动编号查询已录取的报名信息
      */
-    public Message getApplyByApplyIdAndApplyStatus(int ApplyId){
+    public Message<List<Apply>> getApplyByApplyIdAndApplyStatus(int ApplyId){
         logger.info("根据活动编号查询已录取的报名信息，活动编号：{}",ApplyId);
         return Message.success(null).add(applyRepository.getApplyByApplyIdAndApplyStatus(ApplyId,"1"));
     }
@@ -55,9 +56,23 @@ public class ApplyService {
      * @Date: 10:41 2020/4/20
      * @Description: 根据活动编号查询所有的报名信息
      */
-    public Message getApplyByApplyId(int ApplyId){
-        logger.info("根据活动编号查询所有的报名信息，活动编号：{}",ApplyId);
-        return Message.success(null).add(applyRepository.getApplyByApplyId(ApplyId));
+    /**
+     * 错误！ 方法名应该为：getApplyByActivityId ，却被写为 getApplyByApplyId
+     * 王镭树 4.28 23：58
+     */
+    public Message<List<Apply>> getApplyByActivityId(int activityId){
+        logger.info("根据活动编号查询所有的报名信息，活动编号：{}",activityId);
+        return Message.success(null).add(applyRepository.getApplyByApplyActivityId(activityId));
+    }
+
+    /**
+    * @Author: Wls
+    * @Date: 0:03 2020/4/29
+    * @Description: 【补充】 根据报名申请编号获取报名详细信息
+    */
+    public Message<Apply> getApplyByApplyId(Integer applyId){
+        logger.info("根据活动编号查询所有的报名信息，报名编号：{}",applyId);
+        return Message.success(null).add(applyRepository.getApplyByApplyId(applyId));
     }
 
     /**
@@ -65,7 +80,7 @@ public class ApplyService {
      * @Date: 10:47 2020/4/20
      * @Description: 根据用户编号查询所有的报名信息
      */
-    public Message getApplyByApplyUserId(String ApplyUserId){
+    public Message<List<Apply>> getApplyByApplyUserId(String ApplyUserId){
         logger.info("根据用户编号查询所有的报名信息，用户编号：{}",ApplyUserId);
         return Message.success(null).add(applyRepository.getApplyByApplyUserId(ApplyUserId));
     }
@@ -75,7 +90,7 @@ public class ApplyService {
      * @Date: 10:56 2020/4/20
      * @Description: 通过用户编号查询和录取状态查询报名信息
      */
-    public Message getApplyByApplyUserIdAndApplyStatus(String ApplyUserId,String ApplyStatus){
+    public Message<List<Apply>> getApplyByApplyUserIdAndApplyStatus(String ApplyUserId,String ApplyStatus){
         logger.info("根据用户编号查询所有的报名信息，用户编号：{},录取状态：{}",ApplyUserId,ApplyStatus);
         return Message.success(null).add(applyRepository.getApplyByApplyUserIdAndApplyStatus(ApplyUserId,ApplyStatus));
     }

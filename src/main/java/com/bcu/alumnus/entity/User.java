@@ -11,6 +11,9 @@ import javax.persistence.Id;
 @Data
 @Entity
 public class User {
+
+    public interface UserSimpleView extends Message.UnionSimpleView{}
+
     /**
      * 用户编号（校友为学号，教师为工号）
      */

@@ -85,7 +85,7 @@ public class UserService {
     * @Date: 12:42 2020/4/6
     * @Description: 根据班级查询用户
     */
-    public Message getUserByClassId(String classId){
+    public Message<List<User>> getUserByClassId(String classId){
         List<User> rs=userRepository.getUserByUserClassId(classId);
         return Message.success(null).add(rs);
     }
@@ -95,7 +95,7 @@ public class UserService {
     * @Date: 12:43 2020/4/6
     * @Description: 根据学部查询用户
     */
-    public Message getUserByPartId(String partId){
+    public Message<List<User>> getUserByPartId(String partId){
         List<User> rs=userRepository.getUserByUserPartId(partId);
         return Message.success(null).add(rs);
     }
@@ -107,7 +107,7 @@ public class UserService {
     * @Date: 15:05 2020/4/5
     * @Description: 查询用户信息
     */
-    public Message searchUserInfoByUserId(String userId){
+    public Message<User> searchUserInfoByUserId(String userId){
         logger.info("查找用户：{}",userId);
           User u= userRepository.getUserByUserId(userId);
           if (u!=null){

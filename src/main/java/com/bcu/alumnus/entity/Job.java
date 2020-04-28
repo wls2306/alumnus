@@ -1,10 +1,10 @@
 package com.bcu.alumnus.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import lombok.Data;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,12 +14,16 @@ import javax.persistence.Id;
 @Entity
 @Data
 public class Job {
+
+    public interface JobSimpleView extends Message.UnionSimpleView {};
+
     /**
      * 岗位编号
      */
     @ApiModelProperty(value = "岗位编号")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(JobSimpleView.class)
     private Integer jobId;
 
     /**

@@ -8,10 +8,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @Api(tags = "活动报名模块")
-@RequestMapping("/api/activityApply")
+@RequestMapping("/api/apply")
 public class ApplyController {
 
     @Resource
@@ -19,29 +20,35 @@ public class ApplyController {
 
     @PostMapping("/")
     @ApiOperation(value = "添加报名信息，并根据活动的录取形式，生成报名状态（若报名不须审核则直接录取状态）")
-    public Message insertApply(Apply apply){
+    public Message<Apply> insertApply(Apply apply){
         return applyService.insertApply(apply);
     }
 
-    @GetMapping("/search/applyId/status/{ApplyId}")
+    @GetMapping("/search/status/{ApplyId}")
     @ApiOperation(value = "根据活动编号查询已录取的报名信息")
-    public Message getApplyByApplyIdAndApplyStatus(@PathVariable("ApplyId")int ApplyId){
+    public Message<List<Apply>> getApplyByApplyIdAndApplyStatus(@PathVariable("ApplyId")int ApplyId){
         return applyService.getApplyByApplyIdAndApplyStatus(ApplyId);
     }
 
-    @GetMapping("/search/applyId/{ApplyId}")
+    @GetMapping("/search/activityId/{activityId}")
     @ApiOperation(value = "根据活动编号查询所有的报名信息")
-    public Message getApplyByApplyId(@PathVariable("ApplyId")int ApplyId){
-        return applyService.getApplyByApplyId(ApplyId);
+    public Message<List<Apply>> getApplyByActivityId(@PathVariable("activityId")int activityId){
+        return applyService.getApplyByActivityId(activityId);
     }
 
-    @GetMapping("/search/userId/{ApplyUserId}")
+    @GetMapping("/search/applyId/{applyId}")
+    @ApiOperation(value = "根据报名编号查询所有的报名详细信息")
+    public Message<Apply> getApplyByApplyId(@PathVariable("applyId")int applyId){
+        return applyService.getApplyByApplyId(applyId);
+    }
+
+    @GetMapping("/search/ApplyUserId/{ApplyUserId}")
     @ApiOperation(value = "根据用户编号查询所有的报名信息")
-    public Message getApplyByApplyUserId(@PathVariable("ApplyUserId")String ApplyUserId){
+    public Message<List<Apply>> getApplyByApplyUserId(@PathVariable("ApplyUserId")String ApplyUserId){
         return applyService.getApplyByApplyUserId(ApplyUserId);
     }
 
-    @GetMapping("/search/userId/status{ApplyUserId}/{ApplyStatus}")
+    @GetMapping("/search/userId/status/{ApplyUserId}/{ApplyStatus}")
     @ApiOperation(value = "通过用户编号查询和录取状态查询报名信息")
     public Message getApplyByApplyUserIdAndApplyStatus(@PathVariable("ApplyUserId")String ApplyUserId,@PathVariable("ApplyStatus")String ApplyStatus){
         return applyService.getApplyByApplyUserIdAndApplyStatus(ApplyUserId,ApplyStatus);

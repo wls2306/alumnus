@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @Api(tags = "用户模块")
@@ -29,7 +30,7 @@ public class UserController {
 
     @GetMapping("/")
     @ApiOperation(value = "获取当前token用户的信息")
-    public Message getUserByToken(String token)  {
+    public Message<User> getUserByToken(String token)  {
 
         if (token != null) {
             try {
@@ -60,16 +61,24 @@ public class UserController {
     @GetMapping("/class/{classId}")
     @ApiOperation(value = "根据班级编号获取用户")
     @UseToken(level = 2)
-    public Message getUserByClassId(@PathVariable("classId") String classId){
+    public Message<List<User>> getUserByClassId(@PathVariable("classId") String classId){
         return userService.getUserByClassId(classId);
     }
 
     @GetMapping("/part/{partId}")
     @ApiOperation(value = "根据学部编号获取用户")
     @UseToken(level = 3)
-    public Message getUserByPartId(@PathVariable("partId") String partId)
+    public Message<List<User>> getUserByPartId(@PathVariable("partId") String partId)
     {
         return userService.getUserByPartId(partId);
+    }
+
+
+    @GetMapping("/logout")
+    @ApiOperation(value = "无意义注销接口")
+    public Message logout()
+    {
+        return Message.success(null);
     }
 
 

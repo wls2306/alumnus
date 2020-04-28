@@ -17,6 +17,8 @@ public class Apply {
     /**
      * 报名编号
      */
+    public interface ApplySimpleView extends Message.UnionSimpleView{};
+
     @ApiModelProperty(value = "报名编号")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

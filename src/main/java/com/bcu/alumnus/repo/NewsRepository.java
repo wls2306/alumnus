@@ -28,8 +28,7 @@ public interface NewsRepository extends JpaRepository<News, Integer>, JpaSpecifi
     List<News> getNewsByNewsTypeAndNewsStatus(String newsType,String newsStatus);
 
 
-
-    News getNewsByNewsId(String newsId);
+    News getNewsByNewsId(Integer newsId);
 
     int deleteByNewsId(String newsId);
 
@@ -37,6 +36,7 @@ public interface NewsRepository extends JpaRepository<News, Integer>, JpaSpecifi
 
     List<News> getNewsByNewsType(String newsType);
 
+    @Override
     List<News> findAll();
 
     /**
