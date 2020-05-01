@@ -1,0 +1,26 @@
+env: TEST
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: ${${env}.mysql-url}
+    username: ${${env}.mysql-username}
+    password: ${${env}.mysql-password}
+  jpa:
+    show-sql: true
+  profiles:
+    include: constant
+
+
+#  #外部文件配置
+#  mvc:
+#    static-path-pattern: /resource/**
+#  resources:
+#    static-locations: ${${env}.static-locations}
+
+gen:
+  file-path: ${${env}.file-path}
+
+server:
+  servlet:
+    context-path: /alumnus

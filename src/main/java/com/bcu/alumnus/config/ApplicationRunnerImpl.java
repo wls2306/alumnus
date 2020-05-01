@@ -1,11 +1,14 @@
 package com.bcu.alumnus.config;
 
+import com.bcu.alumnus.utils.RSAUtils;
+import com.google.common.reflect.ClassPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 
@@ -31,8 +34,6 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
         logger.info("【欢迎使用 北城校友会 后台服务】");
         logger.info("【项目负责人：李炎昊  联系电话：18501994241】");
 
-
-
         switch (env){
             case "dev":
                 logger.info("【欢迎您对北城校友会项目进行开发】");
@@ -51,6 +52,15 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
                 logger.info("【如需后期维护服务，请联系移动应用开发工作室】");
                 break;
         }
+
+        ClassPathResource pri=new ClassPathResource("key.pri");
+        ClassPathResource pub=new ClassPathResource("key.pub");
+        if (!new File(pri.getPath()).exists()||!new File(pub.getPath()).exists()) {
+            logger.info("RSA密钥文件不存在，已自动生成密钥对");
+            RSAUtils.generateRsaKeyPair();
+        }
+        logger.info("RSA密钥文件正常");
+
 
         logger.info("当前项目的资源文件夹为：{}",path);
         File main = new File(path);
@@ -88,9 +98,6 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
 
 
         logger.info("【好消息】 项目启动完成，资源目录正确");
-
-
-
 
     }
 }
